@@ -76,6 +76,7 @@
 </template>
 
 <script>
+import API from "@/api/modules/login";
 export default {
   name: "login",
   data() {
@@ -158,6 +159,18 @@ export default {
       isCheckPass: false
     };
   },
+  created() {
+    API.getCode({
+      username: "111111@qq.com",
+      module: "login"
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   methods: {
     // 切换登录页
     toggleMneu(id) {
@@ -224,7 +237,7 @@ export default {
 }
 .code {
   width: 100%;
-  font-size: 11px;
+  font-size: 10px;
   color: #fff;
 }
 .submit {
