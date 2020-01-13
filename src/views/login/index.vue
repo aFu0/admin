@@ -52,7 +52,7 @@
           <label class="form-item__label">验证码</label>
           <el-row :gutter="10">
             <el-col :span="15">
-              <el-input v-model.number="ruleForm.code"></el-input
+              <el-input type="text" v-model="ruleForm.code"></el-input
             ></el-col>
             <el-col :span="9"
               ><el-button
@@ -235,6 +235,7 @@ export default {
             code: this.ruleForm.code
           })
             .then(res => {
+              this.$refs.loginForm.resetFields();
               this.tabIsActive = 2;
               console.log(res);
             })

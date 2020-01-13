@@ -46,23 +46,22 @@ module.exports = {
       //       }
     }
   },
-  /* eslint-disable */
-  // Disable sourceMap for production
-  productionSourceMap: process.env.NODE_ENV === "production" ? false : true,
+  // 防止打包错误
+  publicPath: "./",
   devServer: {
     //     // 修改端口
     port: 8099,
-        // 接口
-  proxy: {
-    '/devApi': {
+    // 接口
+    proxy: {
+      "/devApi": {
         target: process.env.VUE_APP_SERVER_URL,
         ws: true,
         // devApi 替换 ''
         pathRewrite: {
-          '^/devApi': ''
+          "^/devApi": ""
         },
         changeOrigin: true // 如果接口跨域，需要进行这个参数配置为true`
-    }
+      }
     }
   }
 };
