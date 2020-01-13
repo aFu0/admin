@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import sha1 from "sha1";
 import API from "@/api/modules/login";
 export default {
   name: "login",
@@ -231,7 +232,7 @@ export default {
           // 调取注册接口
           API.getRegister({
             username: this.ruleForm.mailbox,
-            password: this.ruleForm.mailbox,
+            password: sha1(this.ruleForm.password),
             code: this.ruleForm.code
           })
             .then(res => {
@@ -245,7 +246,7 @@ export default {
         } else {
           API.getLogin({
             username: this.ruleForm.mailbox,
-            password: this.ruleForm.mailbox,
+            password: sha1(this.ruleForm.password),
             code: this.ruleForm.code
           })
             .then(res => {
