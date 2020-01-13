@@ -54,11 +54,12 @@ module.exports = {
     port: 8099,
         // 接口
   proxy: {
-    '/api': {
+    '/devApi': {
         target: process.env.VUE_APP_SERVER_URL,
         ws: true,
+        // devApi 替换 ''
         pathRewrite: {
-          '^/api': ''
+          '^/devApi': ''
         },
         changeOrigin: true // 如果接口跨域，需要进行这个参数配置为true`
     }

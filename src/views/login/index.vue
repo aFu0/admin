@@ -16,7 +16,7 @@
         :model="ruleForm"
         status-icon
         :rules="rules"
-        ref="ruleForm"
+        ref="loginForm"
         size="medium"
         class="form"
       >
@@ -33,7 +33,7 @@
         <el-form-item prop="password" class="form-item">
           <label class="form-item__label">密码</label>
           <el-input
-            type="text"
+            type="password"
             v-model="ruleForm.password"
             autocomplete="off"
           ></el-input>
@@ -42,7 +42,7 @@
         <el-form-item prop="checkPass" class="form-item" v-show="isCheckPass">
           <label class="form-item__label">确认密码</label>
           <el-input
-            type="text"
+            type="password"
             v-model="ruleForm.checkPass"
             autocomplete="off"
           ></el-input>
@@ -55,8 +55,12 @@
               <el-input v-model.number="ruleForm.code"></el-input
             ></el-col>
             <el-col :span="9"
-              ><el-button type="success" @click="getCode" class="code"
-                >获取验证码</el-button
+              ><el-button
+                type="success"
+                :disabled="getCodeStatus"
+                @click="getCode"
+                class="code"
+                >{{ getCodeStatus ? "发送中..." : "发送验证码" }}</el-button
               ></el-col
             >
           </el-row>
@@ -65,9 +69,10 @@
         <el-form-item>
           <el-button
             type="danger"
-            @click="submitForm('ruleForm')"
+            @click="submitForm('loginForm')"
             class="submit"
-            >提交</el-button
+            :disabled="sendBtn"
+            >{{ isCheckPass ? "注册" : "登录" }}</el-button
           >
         </el-form-item>
       </el-form>
@@ -144,9 +149,13 @@ export default {
       ],
       // 表单
       ruleForm: {
+        // 邮箱
         mailbox: "",
+        // 密码
         password: "",
+        // 确认密码
         checkPass: "",
+        // 验证码
         code: ""
       },
       rules: {
@@ -156,22 +165,53 @@ export default {
         code: [{ validator: code, trigger: "blur" }]
       },
       // 确认密码显隐
-      isCheckPass: false
+      isCheckPass: false,
+      // 验证码按钮是否禁用 和 文字变化
+      getCodeStatus: false,
+      // 注册 或 登入按钮是否禁用
+      sendBtn: true
     };
   },
-  created() {
-    API.getCode({
-      username: "111111@qq.com",
-      module: "login"
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
+  created() {},
   methods: {
+    // 获取验证码
+    getCode() {
+      this.getCodeStatus = true;
+      let reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      // 邮箱为空  或 输入不正确的字符 不发送 Axios
+      if (this.ruleForm.mailbox === "") {
+        this.$message({
+          showClose: true,
+          message: "邮箱不能为空",
+          type: "error"
+        });
+        this.getCodeStatus = false;
+        return false;
+      } else if (!reg.test(this.ruleForm.mailbox)) {
+        this.$message({
+          showClose: true,
+          message: "请输入正确的邮箱",
+          type: "error"
+        });
+        this.getCodeStatus = false;
+        return false;
+      }
+      API.getCode({
+        username: this.ruleForm.mailbox,
+        // 如果是注册页面 module 的参数为 register
+        // 如果是登录页面 module 的参数为 login
+        module: this.isCheckPass ? "register" : "login"
+      })
+        .then(res => {
+          this.getCodeStatus = false;
+          this.sendBtn = false;
+          console.log(res);
+        })
+        .catch(err => {
+          this.getCodeStatus = false;
+          console.log(err);
+        });
+    },
     // 切换登录页
     toggleMneu(id) {
       this.tabIsActive = id;
@@ -180,21 +220,41 @@ export default {
       } else {
         this.isCheckPass = true;
       }
+      this.$refs.loginForm.resetFields();
     },
     // 提交按钮
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          alert("submit!");
+    submitForm(loginForm) {
+      console.log(this.$refs[loginForm].validate);
+      // 判断表单里是否填写了内容， 填写了为 true 否则 false
+      this.$refs[loginForm].validate(valid => {
+        if (valid && this.isCheckPass) {
+          // 调取注册接口
+          API.getRegister({
+            username: this.ruleForm.mailbox,
+            password: this.ruleForm.mailbox,
+            code: this.ruleForm.code
+          })
+            .then(res => {
+              this.tabIsActive = 2;
+              console.log(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
         } else {
-          console.log("error submit!!");
-          return false;
+          API.getLogin({
+            username: this.ruleForm.mailbox,
+            password: this.ruleForm.mailbox,
+            code: this.ruleForm.code
+          })
+            .then(res => {
+              console.log(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
         }
       });
-    },
-    // 获取验证码
-    getCode() {
-      alert(123);
     }
   }
 };

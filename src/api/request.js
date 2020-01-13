@@ -1,5 +1,7 @@
 // 1. 引入 Axios
 import Axios from "axios";
+// 引入 element 的弹框
+import { Message } from "element-ui";
 
 // 2. 引入封装 axios 好的方法
 import { requertUrl, requertByGet, requertByPost } from "@/api/axios";
@@ -39,5 +41,24 @@ function get(url, params) {
 function post(url, params) {
   return requertByPost(instance, url, params);
 }
+
+// 响应拦截  resCode 为 0 的时候才能在页面上看到数据
+instance.interceptors.response.use(response => {
+  let data = response.data;
+  // resCode 不为 0 的时候 弹框警告
+  if (data.resCode !== 0) {
+    Message({
+      message: data.message,
+      type: "error"
+    });
+    return response;
+  } else {
+    Message({
+      message: data.message,
+      type: "success"
+    });
+    return response;
+  }
+});
 
 export { get, post };

@@ -1,5 +1,5 @@
 // 请求环境  development (开发环境)  production (生产环境)
-const ENV = process.env.SERVER_URL ;
+const ENV = process.env.SERVER_URL;
 
 // 封装请求地址和环境
 /**
@@ -8,7 +8,7 @@ const ENV = process.env.SERVER_URL ;
  * @return {String}
  */
 function requertUrl() {
-  let url = "";
+  let url = "/devApi";
   if (ENV === "production") {
     url = process.env.VUE_APP_SERVER_URL;
   }
