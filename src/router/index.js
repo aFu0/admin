@@ -6,7 +6,9 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "/login"
+    redirect: "/login",
+    // 不在后台菜单显示
+    hide: true
   }
 ];
 
