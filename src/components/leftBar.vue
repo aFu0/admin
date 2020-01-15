@@ -4,7 +4,7 @@
       <img class="logo" src="~@/assets/images/logo.jpg" alt="logo" />
     </h1>
     <el-menu
-      default-active="2"
+      default-active="/control/index"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
@@ -46,6 +46,7 @@ export default {
   },
   methods: {
     handleOpen(key, keyPath) {
+      console.log(this.$route);
       console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
