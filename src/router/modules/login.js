@@ -9,7 +9,7 @@ const login = {
   hide: true,
   children: [
     {
-      path: "/index",
+      path: "index",
       name: "login",
       component: () => import("@/views/login"),
       meta: {

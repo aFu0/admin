@@ -4,12 +4,15 @@ const control = {
   path: "/control",
   name: "control",
   component: layout,
-  monicker: "控制台",
   redirect: "/control/index",
+  meta: {
+    monicker: "控制台",
+    icon: "console"
+  },
   children: [
     {
       path: "/control/index",
-      name: "control",
+      name: "controlIndex",
       component: () => import("@/views/control"),
       meta: {
         name: "控制台"

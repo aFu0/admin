@@ -20,7 +20,7 @@ import pageHeader from "@/components/pageHeader";
 export default {
   name: "layout",
   created() {
-    console.log(this.$route);
+    // console.log(this.$route);
   },
   components: {
     leftBar,

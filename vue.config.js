@@ -2,29 +2,29 @@
 // const autoprefixer = require("autoprefixer");
 
 // // svg
-// const path = require("path");
-// function resolve(dir) {
-//   return path.join(__dirname, ".", dir);
-// }
+const path = require("path");
+function resolve(dir) {
+  return path.join(__dirname, ".", dir);
+}
 module.exports = {
   //   // svg
-  //   chainWebpack: config => {
-  //     config.module
-  //       .rule("svg")
-  //       .exclude.add(resolve("src/icons"))
-  //       .end();
+  chainWebpack: config => {
+    config.module
+      .rule("svg")
+      .exclude.add(resolve("src/icons"))
+      .end();
 
-  //     config.module
-  //       .rule("icons")
-  //       .test(/\.svg$/)
-  //       .include.add(resolve("src/icons"))
-  //       .end()
-  //       .use("svg-sprite-loader")
-  //       .loader("svg-sprite-loader")
-  //       .options({
-  //         symbolId: "[name]"
-  //       });
-  //   },
+    config.module
+      .rule("icons")
+      .test(/\.svg$/)
+      .include.add(resolve("src/icons"))
+      .end()
+      .use("svg-sprite-loader")
+      .loader("svg-sprite-loader")
+      .options({
+        symbolId: "[name]"
+      });
+  },
   //   // px 转 vw
   css: {
     loaderOptions: {

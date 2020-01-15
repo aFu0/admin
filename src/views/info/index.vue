@@ -1,10 +1,13 @@
 <template>
-  <div>info</div>
+  <div>
+    info
+    <svg-icon iconNames="close"></svg-icon>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "info"
+  name: "infoIndex"
 };
 </script>
 

@@ -83,6 +83,7 @@
 <script>
 // import sha1 from "sha1";
 import API from "@/api/modules/login";
+import { setToken, setName } from "@/utils/cookie";
 export default {
   name: "login",
   data() {
@@ -255,6 +256,10 @@ export default {
           })
             .then(res => {
               console.log(res);
+              let to_ken = res.data.token;
+              let name = res.data.username;
+              setToken(to_ken);
+              setName(name);
               this.$router.push("/control/index");
             })
             .catch(err => {

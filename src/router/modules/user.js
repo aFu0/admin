@@ -4,12 +4,15 @@ const user = {
   path: "/user",
   name: "user",
   component: layout,
-  monicker: "用户列表",
   redirect: "/user/index",
+  meta: {
+    monicker: "用户列表",
+    icon: "user"
+  },
   children: [
     {
       path: "/user/index",
-      name: "user",
+      name: "userIndex",
       component: () => import("@/views/user"),
       meta: {
         name: "用户列表"

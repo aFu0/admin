@@ -15,8 +15,9 @@
       <template v-for="menu in menuBar">
         <el-submenu v-if="!menu.hide" :key="menu.id" :index="menu.path">
           <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>{{ menu.monicker }}</span>
+            <!-- <i class="el-icon-location"></i> -->
+            <svg-icon class="menu-icon" :iconNames="menu.meta.icon"></svg-icon>
+            <span>{{ menu.meta.monicker }}</span>
           </template>
           <el-menu-item
             v-for="list in menu.children"
@@ -41,7 +42,7 @@ export default {
   },
   created() {
     this.menuBar = this.$router.options.routes;
-    console.log(this.$router.options.routes);
+    // console.log(this.$router.options.routes);
   },
   methods: {
     handleOpen(key, keyPath) {
@@ -63,8 +64,13 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 1;
   width: 250px;
   height: 100vh;
   background-color: #344a5f;
+}
+.menu-icon {
+  padding-right: 6px;
+  font-size: 18px;
 }
 </style>

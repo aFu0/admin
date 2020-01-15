@@ -4,12 +4,15 @@ const info = {
   path: "/info",
   name: "info",
   component: layout,
-  monicker: "信息管理",
   redirect: "/info/index",
+  meta: {
+    monicker: "信息管理",
+    icon: "order"
+  },
   children: [
     {
       path: "/info/index",
-      name: "info",
+      name: "infoIndex",
       component: () => import("@/views/info/index"),
       meta: {
         name: "信息列表"
