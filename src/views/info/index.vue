@@ -18,7 +18,7 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="7">
             <label class="datas">日期</label
             ><el-time-picker
               is-range
@@ -30,7 +30,7 @@
             >
             </el-time-picker
           ></el-col>
-          <el-col :span="10">
+          <el-col :span="9">
             <el-form-item
               label="关键字"
               prop="search"
@@ -44,7 +44,11 @@
               </el-select>
 
               <div class="fliter">
-                <el-input v-model="fliter" placeholder="请输入内容"></el-input>
+                <el-input
+                  v-model="fliter"
+                  placeholder="请输入内容"
+                  class="fliter-ipt"
+                ></el-input>
                 <el-button class="danger" type="danger" size="small"
                   >搜索</el-button
                 >
@@ -77,11 +81,11 @@
         <el-table-column label="标题" prop="headline"></el-table-column>
         <el-table-column prop="type" label="类别" width="130">
         </el-table-column>
-        <el-table-column prop="date" label="日期" width="240">
+        <el-table-column prop="date" label="日期" width="120">
         </el-table-column>
         <el-table-column prop="name" label="管理人" width="116">
         </el-table-column>
-        <el-table-column label="操作" width="150"
+        <el-table-column label="操作" width="146"
           ><template slot-scope="scope">
             <el-button
               size="mini"
@@ -253,9 +257,12 @@ export default {
   top: 0;
   width: 220px;
 }
+.fliter-ipt {
+  width: 90%;
+}
 .danger {
   position: absolute;
-  left: 230px;
+  left: 210px;
   color: #fff;
 }
 .add {

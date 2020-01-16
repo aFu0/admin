@@ -60,6 +60,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 2;
   height: 76px;
   width: 100%;
   padding-left: 250px;

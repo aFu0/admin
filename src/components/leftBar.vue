@@ -66,7 +66,7 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 3;
   width: 250px;
   height: 100vh;
   background-color: #344a5f;
@@ -74,5 +74,8 @@ export default {
 .menu-icon {
   padding-right: 6px;
   font-size: 18px;
+}
+.el-menu-vertical-demo {
+  width: 250px;
 }
 </style>
