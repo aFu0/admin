@@ -24,13 +24,32 @@ export default {
       userName: getName()
     };
   },
-  created() {
-    console.log(getName());
-  },
+  created() {},
   methods: {
     close() {
-      removeToken();
-      removeName();
+      this.$confirm("此操作将退出登录, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        // confirmButtonClass: "decided",
+        center: true
+      })
+        .then(() => {
+          this.$message({
+            type: "success",
+            message: "退出登录成功!"
+          });
+          // 清除 cooken
+          removeToken();
+          removeName();
+          this.$router.push("/login/index");
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消退出登录"
+          });
+        });
     }
   }
 };
@@ -80,4 +99,8 @@ export default {
   font-size: 32px;
   text-align: center;
 }
+// v-deep .el-button--primary {
+//   background-color: #000000;
+//   font-size: 66px;
+// }
 </style>

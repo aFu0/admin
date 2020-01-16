@@ -4,7 +4,7 @@
       <img class="logo" src="~@/assets/images/logo.jpg" alt="logo" />
     </h1>
     <el-menu
-      default-active="/control/index"
+      :default-active="routerActive"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
@@ -37,12 +37,13 @@ export default {
   data() {
     return {
       // 从路由里那显示的页面
-      menuBar: []
+      menuBar: [],
+      routerActive: "/control/index"
     };
   },
   created() {
     this.menuBar = this.$router.options.routes;
-    // console.log(this.$router.options.routes);
+    this.routerActive = this.$route.path;
   },
   methods: {
     handleOpen(key, keyPath) {
