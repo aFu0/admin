@@ -81,7 +81,7 @@
 </template>
 
 <script>
-// import sha1 from "sha1";
+import sha1 from "sha1";
 import API from "@/api/modules/login";
 import { setToken, setName } from "@/utils/cookie";
 export default {
@@ -232,11 +232,12 @@ export default {
         // 判断表单里是否填写了内容， 填写了为 true 否则 false
         // 判断 isCheckPass 是否为 true 为true的时候是注册， false 的时候是登录
         if (valid && this.isCheckPass) {
+          console.log(this.ruleForm.code);
           // 调取注册接口
           API.getRegister({
             username: this.ruleForm.mailbox,
-            // password: sha1(this.ruleForm.password), // 加密的
-            password: this.ruleForm.password,
+            password: sha1(this.ruleForm.password), // 加密的
+            // password: this.ruleForm.password,
             code: this.ruleForm.code
           })
             .then(res => {
@@ -250,8 +251,8 @@ export default {
         } else {
           API.getLogin({
             username: this.ruleForm.mailbox,
-            // password: sha1(this.ruleForm.password), // 加密的
-            password: this.ruleForm.password,
+            password: sha1(this.ruleForm.password), // 加密的
+            // password: this.ruleForm.password,
             code: this.ruleForm.code
           })
             .then(res => {
